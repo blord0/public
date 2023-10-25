@@ -7,32 +7,22 @@ async def on_ready():
   print("Current jobs: Auto react")
 
 @bot.event
-async def on_message(message: discord.Message):
+async def on_message(message: discord.Message): # Sorted mostly by importance
   react = False
   if message.author.id in[1125525137689694368,549207190330671107]: # Diavolo and Violent
     guild = await bot.fetch_guild(725466554065748088)
     emoji = await guild.fetch_emoji(1165776586889502861) # Thug shaker
     react = True
-  
+
+  elif message.author.id == 667276333294026772: # BLord
+    guild = await bot.fetch_guild(1035115107178512384)
+    emoji = await guild.fetch_emoji(1164255035174178896) # Lightsaber pepe
+    react = True
+
   elif message.author.id == 1111505015308304384: # Jayden
     guild = await bot.fetch_guild(1035115107178512384)
     emoji = await guild.fetch_emoji(1164256858211635331) # lmao my ass off
     react = True
-  
-  elif message.author.id == 1112348830034296852: # Destin
-    guild = await bot.fetch_guild(1035115107178512384)
-    emoji = await guild.fetch_emoji(1049756255629090856) # Irishfuck
-    react = True
-  
-  elif message.author.id == 980341109983170570: # Ske
-    guild = await bot.fetch_guild(1030592458209366156)
-    emoji = await guild.fetch_emoji(1154096962845548544) # me irl
-    emoji = discord.PartialEmoji(name="🐌")
-    react = True
-
-  elif message.author.id == 1000470934710403082: # Aexel
-    #emoji = discord.PartialEmoji(name="🐵")
-    react = False
   
   elif message.author.id == 1110922698382647356: # Lette
     guild = await bot.fetch_guild(1035115107178512384)
@@ -49,9 +39,29 @@ async def on_message(message: discord.Message):
     emoji = await guild.fetch_emoji(1151853509378064435) # Funny bee emoji
     react = True
 
-  elif message.author.id == 667276333294026772: # BLord
+  elif message.author.id == 1112348830034296852: # Destin
     guild = await bot.fetch_guild(1035115107178512384)
-    emoji = await guild.fetch_emoji(1164255035174178896)
+    emoji = await guild.fetch_emoji(1049756255629090856) # Irishfuck
+    react = True
+  
+  elif message.author.id == 980341109983170570: # Ske
+    guild = await bot.fetch_guild(1030592458209366156)
+    emoji = await guild.fetch_emoji(1154096962845548544) # me irl
+    emoji = discord.PartialEmoji(name="🐌")
+    react = True
+
+  elif message.author.id == 1000470934710403082: # Aexel
+    #emoji = discord.PartialEmoji(name="🐵")
+    react = False
+  
+  elif message.author.id == 1155555644284358727: # sisyphus prime
+    guild = await bot.fetch_guild(1035115107178512384)
+    emoji = await guild.fetch_emoji(1141054071390875709) # Rainbow blob
+    react = True
+  
+  elif message.author.id == 946842264867581973: # mr acidenter
+    guild = await bot.fetch_guild(1035115107178512384)
+    emoji = await guild.fetch_emoji(1144790991358931004)
     react = True
 
   if react:  
