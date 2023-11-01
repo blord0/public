@@ -9,7 +9,7 @@ async def on_ready():
 @bot.event
 async def on_message(message: discord.Message): # Sorted mostly by importance
   react = False
-  if message.author.id in[1125525137689694368,549207190330671107]: # Diavolo and Violent
+  if message.author.id in [1125525137689694368,549207190330671107]: # Diavolo and Violent
     guild = await bot.fetch_guild(725466554065748088)
     emoji = await guild.fetch_emoji(1165776586889502861) # Thug shaker
     react = True
@@ -55,13 +55,8 @@ async def on_message(message: discord.Message): # Sorted mostly by importance
     react = False
   
   elif message.author.id == 1155555644284358727: # sisyphus prime
-    guild = await bot.fetch_guild(1035115107178512384)
-    emoji = await guild.fetch_emoji(1141054071390875709) # Rainbow blob
-    react = True
-  
-  elif message.author.id == 946842264867581973: # mr acidenter
-    guild = await bot.fetch_guild(1035115107178512384)
-    emoji = await guild.fetch_emoji(1144790991358931004)
+    guild = await bot.fetch_guild(1076022921195167744)
+    emoji = await guild.fetch_emoji(1076428068811456523) # joseph_carlo
     react = True
 
   if react:  
