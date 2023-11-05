@@ -24,7 +24,7 @@ function eraseCookie(name) {
   document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
-// Everything below here is website specific code for blord.xyz. You should delete it if use this code as it won't to anything for you
+// Everything below here is website specific code for blord.xyz. You should delete it if you do use this code, as it won't do anything for you
 // =-=-=-=-=-=-=-=-=-=-=
 
 //Nginx handels what index is sent based on the cookie 'index_style'
