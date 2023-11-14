@@ -1,3 +1,7 @@
+# This only works on bash's curl due to how cmd and powershell do stuff with formatting when parsing
+# Use WSL if you are on windows. Download it in the store here https://apps.microsoft.com/search?query=wsl
+# Or you can try and debug it so that it works in windows. I tried for a bit but could not get it to work
+
 selfbot_token = "" # The token of the account you want to react with (needs nitro)
 normalbot_token = "" 
 # Token of bot that is in the server
@@ -77,10 +81,5 @@ async def on_message(message: discord.Message):
     web_headers = f'--user-agent "{user_agent}" ' + web_head1 + web_head2 + web_head3 + token_header
     os.system(f'''curl -X PUT "{base_url}/channels/{message.channel.id}/messages/{message.id}/reactions/{emoji_name}%3A{emoji_id}/%40me?location=Message&type=1" {web_headers}''')
 
-
-
-  # This for some reason only works on linux curl
-  # Use WSL if you are on windows. Download it in the store here https://apps.microsoft.com/search?query=wsl
-  # Or you can try and debug it so that it works in windows lol
 
 bot.run(normalbot_token)
