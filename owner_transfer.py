@@ -1,8 +1,10 @@
+# This only works on bash's curl due to how cmd and powershell do stuff with formatting when parsing
+# Use WSL if you are on windows. Download it in the store here https://apps.microsoft.com/search?query=wsl
+# Or you can try and debug it so that it works in windows. I tried for a bit but could not get it to work
+
 import os
 import json
 import base64
-
-# For some unknown reason, this only works on bash. Good luck getting it to work on cmd
 
 token = input("Token of owner: ")
 recipient_id = input("User ID of recepient: ")
