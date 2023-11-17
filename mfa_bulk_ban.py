@@ -1,7 +1,7 @@
 # This script does not work on windows due to how cmd parses the commands
 # You can install wsl here https://apps.microsoft.com/search?query=wsl
-# From that you should be able to use wsl to launch the script and it work
-# You can try get it to work with Windows cmd 
+# Then start wsl and launch the python script from there
+# You can try get it to work with Windows cmd but I have no idea how you would do that
 
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
 # This may need updating to the latest browser agent
