@@ -1,34 +1,14 @@
-# This only works on bash's curl due to how cmd and powershell do stuff with formatting when parsing
-# Use WSL if you are on windows. Download it in the store here https://apps.microsoft.com/search?query=wsl
-# Or you can try and debug it so that it works in windows. I tried for a bit but could not get it to work
-
-selfbot_token = "" # The token of the account you want to react with (needs nitro)
-normalbot_token = "" 
-# Token of bot that is in the server
-# We use a normal bot to detect messages as that is far easier
-# Also I could not be bothered to code a websocket for a selfbot so that we can be a full selfbot
-
-your_id = 667276333294026772
-# The id of the user you want to react to
-
+# The user agent value is the only that that needs to be updated from time to time
+# Copy the value given from this url https://www.google.com/search?q=what+is+my+user+agent
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-# User agent given to discord so they are less likely to ban us
+token_selfbot = ""
+token_bot = ""
 
+# Needs normal bot and selfbot bc i cba to make a websocket for message events
 
-emoji_name = "lightsaberpepe"
-emoji_id = 1164255035174178896
-
-your_id = 0
-on_your_messages = False # Every message you send gets a react
-on_your_mentions = True # Every message that mentions you or replies to you gets a react
-
-
-# Do not need to change anything past here
-import os
 import discord
 import base64
-
-
+import requests
 
 base_url = "https://discord.com/api/v9"
 for c in range(len(user_agent)):
@@ -51,9 +31,12 @@ super_properties_build += r'"release_channel":"stable","client_build_number":244
 super_properties_build = super_properties_build.encode("ascii")
 super_properties_final = str(base64.b64encode(super_properties_build))[2:-1]
 
-web_head1 = r'''--header "Content-Length: 0" --header "Dnt: 1"  --header "Origin: https://discord.com" '''
-web_head3 = f'''"Not=A?Brand";v="99" --header "Sec-Ch-Ua-Platform: 'Windows'" --header "x-super-properties: {super_properties_final}"'''
-token_header = f' --header "Authorization: {selfbot_token}"'
+web_headers = {"Content-Type": "application/json", "Dnt": "1", "Origin": "https://discord.com", "Referer": "https://discord.com/channels/@me", 
+               "Sec-Ch-Ua": f'"Google Chrome";v="{browser_version[1]}", "Chromium";v="{browser_version[1]}", "Not=A?Brand";v="99"',
+               "Sec-Ch-Ua-Platform": "'Windows'", "x-super-properties": super_properties_final, "user-agent": user_agent,
+               "Authorization": token_selfbot
+               }
+
 bot = discord.Client(intents=discord.Intents.all())
 
 @bot.event
@@ -61,25 +44,39 @@ async def on_ready():
   print(f"Hooked into {bot.user}")
   print(f"Running autoreact")
 
-
 @bot.event
 async def on_message(message: discord.Message):
   if message.interaction:
     if type(message.interaction.user) == discord.User:
       return
-  
-  react = False
   for m in message.mentions:
-    if m.id == your_id and on_your_mentions:
+    react = False
+    if m.id == 667276333294026772: # blord
+      emoji_var = r"lightsaberpepe%3A1164255035174178896"
+      react = True
+    elif m.id == 1110922698382647356: #lette
+      emoji_var = r"alarm%3A1083499572409675949"
+      react = True
+    elif m.id == 1112874692190150757: # 33plus0
+      emoji_var = r"33plus0%3A1056248100265664562"
+      react = True
+    elif m.id == 436089192259387393: # Noah
+      emoji_var = r"amogussex%3A1171896310689955960"
+      react = True
+    elif m.id in [1125525137689694368, 549207190330671107]: # Diavolo and violent
+      emoji_var = r"thugass%3A1165776586889502861"
+      react = True
+    elif m.id == 1111505015308304384: # Jayden
+      emoji_var = r"%F0%9F%87%B3%F0%9F%87%BF"
       react = True
 
-  if message.author.id == your_id and on_your_messages:
-    react = True
+    if react:
+      web_headers["Referer"] = f"https://discord.com/channels/{message.guild.id}/{message.channel.id}"
+      req_url = f"{base_url}/channels/{message.channel.id}/messages/{message.id}/reactions/{emoji_var}/%40me?location=Message&type=1"
+      var = requests.api.request("PUT", req_url, headers=web_headers).content
+      if str(var) != "b''":
+        print(var)
 
-  if react:
-    web_head2 = f'''--header "Referer: https://discord.com/channels/{message.guild.id}/{message.channel.id}" --header '"Google Chrome";v="{browser_version[1]}", "Chromium";v="{browser_version[1]}", '''
-    web_headers = f'--user-agent "{user_agent}" ' + web_head1 + web_head2 + web_head3 + token_header
-    os.system(f'''curl -X PUT "{base_url}/channels/{message.channel.id}/messages/{message.id}/reactions/{emoji_name}%3A{emoji_id}/%40me?location=Message&type=1" {web_headers}''')
+# Code only runs in wacko cracko server
 
-
-bot.run(normalbot_token)
+bot.run(token_bot)
